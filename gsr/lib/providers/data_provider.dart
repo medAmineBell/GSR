@@ -75,6 +75,29 @@ class DataProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addCategory(String catName) async {
+    final url = serverUrl + 'api/v1/categories/create/';
+
+    final response = await http.post(Uri.parse(url),
+        headers: {"Authorization": "Token $token"},
+        body: {"name": catName, "reference": catName});
+
+    print(response.body);
+  }
+
+  Future<void> editCategory(String catName, String id) async {
+    final url = serverUrl + 'api/v1/categories/update/$id/';
+
+    final response = await http.put(Uri.parse(url), headers: {
+      "Authorization": "Token $token"
+    }, body: {
+      "name": catName,
+      "reference": catName,
+    });
+
+    print(response.body);
+  }
+
   // Future<User> addUser(String cin, String password) async {
   //   late User student;
   //   final url = serverUrl + '/api/users';

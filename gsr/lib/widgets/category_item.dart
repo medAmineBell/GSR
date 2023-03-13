@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gsr/models/category.dart';
+import 'package:gsr/providers/data_provider.dart';
+import 'package:gsr/widgets/edit_category.dart';
+import 'package:provider/provider.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -16,7 +19,16 @@ class CategoryItem extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await showDialog(
+                  context: context,
+                  builder: (BuildContext context) => EditCategory(
+                    category: category,
+                  ),
+                );
+                await Provider.of<DataProvider>(context, listen: false)
+                    .getCategories();
+              },
               icon: Icon(
                 Icons.edit,
                 color: Colors.green,

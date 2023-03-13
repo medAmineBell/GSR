@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:gsr/models/category.dart';
 import 'package:gsr/providers/data_provider.dart';
 import 'package:provider/provider.dart';
 
-class AddCategory extends StatefulWidget {
+class EditCategory extends StatefulWidget {
+  final Category category;
+
+  const EditCategory({super.key, required this.category});
   @override
-  _AddCategoryState createState() => _AddCategoryState();
+  _EditCategoryState createState() => _EditCategoryState();
 }
 
-class _AddCategoryState extends State<AddCategory> {
+class _EditCategoryState extends State<EditCategory> {
   TextEditingController namecontroller = TextEditingController();
   bool _validname = false;
+  @override
+  void initState() {
+    super.initState();
+    namecontroller.text = widget.category.name;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -38,7 +48,7 @@ class _AddCategoryState extends State<AddCategory> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Add category",
+              "Edit category",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -69,7 +79,7 @@ class _AddCategoryState extends State<AddCategory> {
                   });
                   if (namecontroller.text.isNotEmpty) {
                     await Provider.of<DataProvider>(context, listen: false)
-                        .addCategory(namecontroller.text);
+                        .editCategory(namecontroller.text, widget.category.id);
                     Navigator.pop(context);
                   }
                 },
