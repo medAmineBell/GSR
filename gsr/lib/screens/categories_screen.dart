@@ -34,7 +34,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 context: this.context,
                 builder: (BuildContext context) => AddCategory(),
               );
-              Provider.of<DataProvider>(context, listen: false).getCategories();
+              await Provider.of<DataProvider>(context, listen: false)
+                  .getCategories();
             },
             iconSize: 30,
             icon: Icon(
